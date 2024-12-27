@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+</head>
+<body>
+    <h1>Bill for Table {{ order.table_number }}</h1>
+<ul>
+    {% for item in order.items.all %}
+    <li>{{ item.name }} - ${{ item.price }}</li>
+    {% endfor %}
+</ul>
+<h2>Total: ${{ order.total_price }}</h2>
+
+{% if not order.is_paid %}
+    <form action="{% url 'mark_as_paid' order.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Mark as Paid</button>
+    </form>
+{% else %}
+    <p>Order is paid!</p>
+{% endif %}
+
+</body>
+</html>

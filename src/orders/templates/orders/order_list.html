@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Orders</h1>
+        <ul class="list-group">
+            {% for order in orders %}
+                <li class="list-group-item">
+                    <h5>Table {{ order.table_number }}</h5>
+                    <ul>
+                        {% for item in order.order_items.all %}
+                            <li>{{ item.quantity }} x {{ item.menu_item.name }} - ${{ item.menu_item.price }}</li>
+                        {% endfor %}
+                    </ul>
+                    <strong>Total: ${{ order.total_price }}</strong><br>
+                    {% if not order.is_paid %}
+                        <a href="{% url 'generate_bill' order.id %}" class="btn btn-success btn-sm">Generate Bill</a>
+                    {% else %}
+                        <span class="badge badge-success">Paid</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
