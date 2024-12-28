@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'res_proj',
         'USER': 'postgres',
         'PASSWORD': '123456',
-        'HOST': 'postgres',
+        'HOST': 'postgres_container',
         'PORT': '5432',
     }
 }
